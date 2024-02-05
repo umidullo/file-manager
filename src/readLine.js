@@ -37,6 +37,8 @@ export function readlineHandler(userName) {
           break;
         case "add":
           basicOperations.add(cmds[1]);
+        case "rm":
+          basicOperations.rm(cmds[1]);
           break;
       }
     } catch (error) {

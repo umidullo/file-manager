@@ -13,7 +13,19 @@ export class BasicOperations {
     try {
       const pathToFile = join(this.navigation.currentPath, file);
       await fs.writeFile(pathToFile, "", { flag: "wx" });
+      logger.cwd(this.navigation.currentPath);
     } catch (error) {
+      console.error(logger.failed);
+    }
+  }
+
+  async rm(path) {
+    try {
+      //TODO add checking for relative and absolute paths
+      const destination = join(this.navigation.currentPath, path);
+      await fs.rm(destination);
+      logger.cwd(this.navigation.currentPath);
+    } catch {
       console.error(logger.failed);
     }
   }
@@ -22,5 +34,4 @@ export class BasicOperations {
   rn() {}
   cp() {}
   mv() {}
-  rm() {}
 }
