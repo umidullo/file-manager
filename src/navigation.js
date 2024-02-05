@@ -32,19 +32,24 @@ export class Navigation {
       console.table(table);
       logger.cwd(this.currentPath);
     } catch (error) {
-      console.log("logCurrentDirFiles ~ error:", error);
+      console.error("Operation failed");
     }
   }
 
-  cd(destinationPath) {
+  async cd(destinationPath) {
     try {
       const destination = destinationPath.includes(this.currentPath)
         ? join(destinationPath)
         : join(this.currentPath, destinationPath);
-      this.currentPath = destination;
-      logger.cwd(this.currentPath);
+
+      const isPathAccessible = (await fs.stat(destination)).isDirectory();
+
+      if (isPathAccessible) {
+        this.currentPath = destination;
+        logger.cwd(this.currentPath);
+      } else throw new Error("Operation failed");
     } catch (error) {
-      console.log("Navigation ~ cd ~ error:", error);
+      console.error("Operation failed");
     }
   }
 
