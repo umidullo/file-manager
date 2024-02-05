@@ -1,4 +1,3 @@
-import os from "os";
 import readline from "node:readline";
 import { logger } from "./helpers/logger.js";
 import { Navigation } from "./navigation.js";
@@ -12,7 +11,6 @@ export const rl = readline.createInterface({
 
 export function readlineHandler(userName) {
   const navigation = new Navigation();
-  console.log("readlineHandler ~ navigation:", navigation);
 
   rl.on("line", (input) => {
     try {

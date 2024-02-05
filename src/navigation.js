@@ -1,7 +1,7 @@
-import fs from "fs/promises";
-import { logger } from "./helpers/logger.js";
-import { join } from "path";
 import os from "os";
+import fs from "fs/promises";
+import { join } from "path";
+import { logger } from "./helpers/logger.js";
 
 export class Navigation {
   currentPath = os.homedir();
@@ -13,8 +13,23 @@ export class Navigation {
 
   async ls() {
     try {
-      const files = await fs.readdir(this.currentPath);
-      console.table(files);
+      const dirents = await fs.readdir(this.currentPath, {
+        withFileTypes: true,
+      });
+
+      const table = dirents
+        .map((dirent) => ({
+          Name: dirent.name,
+          Type: dirent.isDirectory()
+            ? "dictionary"
+            : dirent.isFile()
+            ? "file"
+            : "unknown",
+        }))
+        .sort(
+          (a, b) => a.Type.localeCompare(b.Type) || a.Name.localeCompare(b.Name)
+        );
+      console.table(table);
       logger.cwd(this.currentPath);
     } catch (error) {
       console.log("logCurrentDirFiles ~ error:", error);
