@@ -32,7 +32,7 @@ export class Navigation {
       console.table(table);
       logger.cwd(this.currentPath);
     } catch (error) {
-      console.error("Operation failed");
+      console.error(logger.failed);
     }
   }
 
@@ -47,9 +47,11 @@ export class Navigation {
       if (isPathAccessible) {
         this.currentPath = destination;
         logger.cwd(this.currentPath);
-      } else throw new Error("Operation failed");
+      } else {
+        console.error(logger.failed);
+      }
     } catch (error) {
-      console.error("Operation failed");
+      console.error(logger.failed);
     }
   }
 
