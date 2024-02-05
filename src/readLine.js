@@ -4,6 +4,7 @@ import { Navigation } from "./navigation.js";
 import { checkCommands } from "./helpers/checkCommands.js";
 import { BasicOperations } from "./basicOperations.js";
 import { getOsInfo } from "./os.js";
+import { hash } from "./hash.js";
 
 export const rl = readline.createInterface({
   input: process.stdin,
@@ -43,6 +44,10 @@ export function readlineHandler(userName) {
           break;
         case "os":
           getOsInfo(cmds[1]);
+          break;
+        case "hash":
+          hash(cmds[1]);
+          logger.cwd(navigation.currentPath);
           break;
       }
     } catch (error) {
