@@ -3,6 +3,7 @@ import { logger } from "./helpers/logger.js";
 import { Navigation } from "./navigation.js";
 import { checkCommands } from "./helpers/checkCommands.js";
 import { BasicOperations } from "./basicOperations.js";
+import { getOsInfo } from "./os.js";
 
 export const rl = readline.createInterface({
   input: process.stdin,
@@ -39,6 +40,9 @@ export function readlineHandler(userName) {
           basicOperations.add(cmds[1]);
         case "rm":
           basicOperations.rm(cmds[1]);
+          break;
+        case "os":
+          getOsInfo(cmds[1]);
           break;
       }
     } catch (error) {
