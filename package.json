@@ -7,7 +7,7 @@
   },
   "type": "module",
   "scripts": {
-    "start": "node src/index.js -- --username=umidullo"
+    "start": "node src/index.js"
   },
   "author": "umidullo",
   "license": "ISC"
