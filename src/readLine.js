@@ -2,6 +2,7 @@ import readline from "node:readline";
 import { logger } from "./helpers/logger.js";
 import { Navigation } from "./navigation.js";
 import { checkCommands } from "./helpers/checkCommands.js";
+import { BasicOperations } from "./basicOperations.js";
 
 export const rl = readline.createInterface({
   input: process.stdin,
@@ -11,6 +12,7 @@ export const rl = readline.createInterface({
 
 export function readlineHandler(userName) {
   const navigation = new Navigation();
+  const basicOperations = new BasicOperations(navigation);
 
   rl.on("line", (input) => {
     try {
@@ -32,6 +34,9 @@ export function readlineHandler(userName) {
           break;
         case "up":
           navigation.up();
+          break;
+        case "add":
+          basicOperations.add(cmds[1]);
           break;
       }
     } catch (error) {
